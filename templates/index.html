@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AvianEchoes</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <header>
+        <a href="/">Home</a>
+        <a href="about">About Us</a>
+    </header>
+
+    <div class="content clearfix">
+        <div class="left-half">
+            <div class="image-container">
+                <dotlottie-player src="https://lottie.host/afee4c5a-3138-4864-afc2-b70e43a7d1dd/E2pE5iLN9n.json"
+                    background="transparent" speed="1" style="width: 100%; max-width: 400px; height: auto; margin: 0 auto;" loop
+                    autoplay></dotlottie-player>
+            </div>
+        </div>
+
+        <div class="right-half">
+            <h1 class="title">Find out what <span style="color: #fda700;">bird</span> <br />
+                is <span style="color: #fda700;">singing</span> nearby!</h1>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <input type="file" name="audioFile" accept=".wav, .mp3, .ogg, .opus" required>
+                <br />
+                <input type="submit" value="Discover!">
+            </form>
+                
+            {% if prediction %}
+            <div class="prediction-result">
+                <h2>Prediction Result:</h2>
+                <p>{{ prediction }}</p>
+            </div>
+            {% endif %}
+
+            {% if img_data %}
+            <div class="spectrogram">
+                <h2>Spectrogram:</h2>
+                <img src="data:image/png;base64,{{ img_data }}" alt="Spectrogram">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+</html>

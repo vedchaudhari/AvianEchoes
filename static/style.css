@@ -1,0 +1,183 @@
+body {
+    background: linear-gradient(135deg, #00688B, #009688, #1E9E73, #3F51B5);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    overflow: hidden;
+    background-color: #333;
+    padding: 10px 6px;
+}
+
+header a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+header a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.left-half,
+.right-half {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.image-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.form-container {
+    width: 100%;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+input {
+    cursor: pointer;
+}
+
+input[type="file"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+input[type="file"]:hover,
+input[type="file"]:focus {
+    border-color: #999;
+}
+
+input[type="submit"] {
+    background-color: #fda700;
+    color: #333;
+    border: none;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+input[type="submit"]:hover {
+    background-color: #fdc000;
+    color: #333;
+}
+
+.title {
+    color: rgb(31, 31, 29);
+    font-size: 35px;
+    margin: 0 0 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.prediction-result,
+.spectrogram {
+    margin-top: 20px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.prediction-result h2,
+.spectrogram h2 {
+    color: #fda700;
+    font-size: 24px;
+}
+
+.prediction-result p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.spectrogram img {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+    .content {
+        flex-direction: row;
+    }
+
+    .left-half,
+    .right-half {
+        width: 50%;
+        max-width: none;
+    }
+
+    .right-half {
+        padding-left: 20px;
+    }
+
+    header {
+        padding: 10px 0;
+    }
+
+    header a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    header {
+        text-align: center;
+    }
+
+    header a {
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+    }
+}
