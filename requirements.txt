@@ -10,3 +10,4 @@ Matplotlib==3.7.1
 Waitress==2.1.2
 Flask==3.0.0
 Plotly==5.18.0
+Sounddevice==0.4.6

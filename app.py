@@ -139,21 +139,76 @@ def predict():
 
         mel_specs = preprocess_audio(file_path)
         predictions = []
+        dict_bird = {}
 
+        count = 0
         for mel_spec in mel_specs:
             p = 0.5 * model1.predict(mel_spec)[0] + 0.5 * model2.predict(mel_spec)[0]
-            species = decode_prediction(p)
-            predictions.append(species)
+            print("PRobability = ",p)
+            x = np.argmax(p)
+            print("Index of max = ",x) #return as key
+            print("Max of prob = ",p[x]) #return as value
+            
+            print("total sum = ",sum(p))
+            count = count + 1
+            
+            if x in dict_bird:
+                dict_bird[x]['sum'] += p[x]
+                dict_bird[x]['count'] += 1
+            else:
+                dict_bird[x] = {'sum':p[x],'count':1}
+
+
+            # #maximum of those and labels of maximum
+            # predictions.append(decode_prediction(p))
+
+        for key in dict_bird:
+            dict_bird[key]['prob_average'] = dict_bird[key]['sum'] / dict_bird[key]['count']
+
+        print("Count = ",count)
+
+        total_count = sum(entry['count'] for entry in dict_bird.values())
+
+        # Calculate the average count for each entry
+        for key, value in dict_bird.items():
+            value['average_count'] = value['count'] / total_count
+
+        print("Modified Dictionary:", dict_bird)
+
+
+        for key in dict_bird:
+            probability_average = dict_bird[key]['prob_average']
+            avg_count = dict_bird[key]['average_count']
+            if((probability_average >= 0.70) or avg_count >= 0.65):
+                predictions.append(LABELS[key])
+
+
+
+        print("Predictions is ",predictions)
+
+
 
         if predictions:  # Check if predictions list is not empty
             mode_prediction = statistics.mode(predictions)
-            os.remove(file_path)  # Remove the uploaded file after processing
-            return render_template('index.html', prediction=mode_prediction, img_data=img_data)
+            # mode_prediction = predictions
+
+            print("Mode prediction:", mode_prediction)
+
+            # Check if mode_prediction is a known bird species
+            if mode_prediction in LABELS:
+                os.remove(file_path)  # Remove the uploaded file after processing
+                return render_template('index.html', prediction=mode_prediction, img_data=img_data)
+            else:
+                print("Mode prediction not found in LABELS dataset:", mode_prediction)
+                os.remove(file_path)  # Remove the uploaded file after processing
+                return render_template('index.html', prediction="Bird not found", img_data=img_data)
         else:
             os.remove(file_path)  # Remove the uploaded file if no predictions were made
             return render_template('index.html', prediction="No bird species predicted", img_data=img_data)
 
     return render_template('index.html', prediction="Invalid file format")
+
+
 
 
 if __name__ == '__main__':
